@@ -1,3 +1,5 @@
+{/* This is the Explore tab which has created automatically at the beginning of the project, now it is commented out. */}
+{/*
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { StyleSheet, Image, Platform } from 'react-native';
 
@@ -100,3 +102,5 @@ const styles = StyleSheet.create({
     gap: 8,
   },
 });
+
+*/}

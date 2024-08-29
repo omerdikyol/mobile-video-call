@@ -1,4 +1,6 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React, { useState } from 'react';
+import { Image, StyleSheet, Platform, TextInput, Button, View, useColorScheme } from 'react-native';
+import { useNavigation } from 'expo-router';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -6,6 +8,21 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
 export default function HomeScreen() {
+  const [url, setUrl] = useState('');
+  const navigation = useNavigation();
+  const colorScheme = useColorScheme();
+
+  const handleJoinCall = () => {
+    if (url) {
+      // Store the URL or do something with it here (e.g., validation)
+      console.log('Joining call with URL:', url);
+      // Navigate to the Video Call tab
+      navigation.navigate('VideoCallScreen');
+    } else {
+      alert('Please enter a URL');
+    }
+  };
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -19,32 +36,23 @@ export default function HomeScreen() {
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
+
+      {/* New Join Call Section */}
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
+        <ThemedText type="subtitle">Join a Video Call</ThemedText>
+        <TextInput
+          style={[
+            styles.input,
+            { color: colorScheme === 'dark' ? '#ffffff' : '#000000' }
+          ]}
+          placeholder="Enter Google Meet URL"
+          placeholderTextColor={colorScheme === 'dark' ? '#aaaaaa' : '#666666'}
+          value={url}
+          onChangeText={setUrl}
+        />
+        <View style={styles.buttonContainer}>
+          <Button title="Join Call" onPress={handleJoinCall} />
+        </View>
       </ThemedView>
     </ParallaxScrollView>
   );
@@ -66,5 +74,16 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 12,
+    paddingHorizontal: 8,
+    borderRadius: 4,
+  },
+  buttonContainer: {
+    alignItems: 'flex-start',
   },
 });

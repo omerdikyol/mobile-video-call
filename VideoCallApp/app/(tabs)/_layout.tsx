@@ -23,12 +23,24 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      
+      {/* This is the Explore tab that has been commented out */}
+      {/* <Tabs.Screen
         name="explore"
         options={{
           title: 'Explore',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          ),
+        }}
+      /> */}
+      
+      <Tabs.Screen
+        name="VideoCallScreen"
+        options={{
+          title: 'Video Call',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'videocam' : 'videocam-outline'} color={color} />
           ),
         }}
       />
